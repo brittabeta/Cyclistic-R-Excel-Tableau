@@ -45,6 +45,6 @@ ggplot(no_outs_trips_12_months,aes(member_casual,trip_length, colour = member_ca
   theme(axis.text.x  = element_text(size = 8)) +
   scale_y_continuous(labels = comma)
 #==================================
-see Part 3
+see Part 4
 
 

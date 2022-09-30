@@ -1,3 +1,5 @@
+# Install and Load Packages
+#===========================
 install.packages("tidyverse")
 library(tidyverse)
 install.packages("readxl")
@@ -18,3 +20,51 @@ install.packages("scales")
 library(scales)
 install.packages("moments")
 library(moments)
+#==========================
+# Upload Data
+#==========================
+X202205_divvy_tripdata_v3 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202205-divvy-tripdata-v3.xlsx")
+X202204_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202204-divvy-tripdata-v3.xlsx")
+X202203_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202203-divvy-tripdata-v3.xlsx")
+X202202_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202202-divvy-tripdata-v3.xlsx")
+X202201_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202201-divvy-tripdata-v3.xlsx")
+X202112_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202112-divvy-tripdata-v3.xlsx")
+X202111_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202111-divvy-tripdata-v3.xlsx")
+X202110_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202110-divvy-tripdata-v3.xlsx")
+X202109_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202109-divvy-tripdata-v3.xlsx")
+X202108_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202108-divvy-tripdata-v3.xlsx")
+X202107_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202107-divvy-tripdata-v3.xlsx")
+X202106_divvy_tripdata_v3 <- read_ xlsx ("C:/Users/breta/OneDrive/Desktop/Data/Case 1/Case 1 Cleaned v3/202106-divvy-tripdata-v3.xlsx")
+stations_692 <- read_ xlsx("C:/Users/breta/OneDrive/Desktop/Data/Case 1/stations_692.xlsx")
+#=========================
+# Check files for compatibility, incongruencies
+#=========================
+colnames(X202205_divvy_tripdata_v3)
+colnames(X202204_divvy_tripdata_v3) 
+colnames(X202203_divvy_tripdata_v3) 
+colnames(X202202_divvy_tripdata_v3) 
+colnames(X202201_divvy_tripdata_v3) 
+colnames(X202112_divvy_tripdata_v3) 
+colnames(X202111_divvy_tripdata_v3) 
+colnames(X202110_divvy_tripdata_v3) 
+colnames(X202109_divvy_tripdata_v3)
+colnames(X202108_divvy_tripdata_v3) 
+colnames(X202107_divvy_tripdata_v3) 
+colnames(X202106_divvy_tripdata_v3)
+str(X202205_divvy_tripdata_v3)
+str(X202204_divvy_tripdata_v3) 
+str(X202203_divvy_tripdata_v3) 
+str(X202202_divvy_tripdata_v3) 
+str(X202201_divvy_tripdata_v3) 
+str(X202112_divvy_tripdata_v3) 
+str(X202111_divvy_tripdata_v3) 
+str(X202110_divvy_tripdata_v3) 
+str(X202109_divvy_tripdata_v3)
+str(X202108_divvy_tripdata_v3) 
+str(X202107_divvy_tripdata_v3) 
+str(X202106_divvy_tripdata_v3)
+#=============================
+# Merge month data frames into one 12 month data frame
+trips_12_months_1 <- bind_rows(X202205_divvy_tripdata_v3, X202204_divvy_tripdata_v3, X202203_divvy_tripdata_v3, X202202_divvy_tripdata_v3, X202201_divvy_tripdata_v3, X202112_divvy_tripdata_v3, X202111_divvy_tripdata_v3, X202110_divvy_tripdata_v3, X202109_divvy_tripdata_v3, X202108_divvy_tripdata_v3, X202107_divvy_tripdata_v3, X202106_divvy_tripdata_v3)
+#=====================
+# see Part 2...

@@ -1,0 +1,50 @@
+# over 12 months how many trips did members and casual riders take and visualize findings
+#===============
+no_outs_trips_12_months_number_of_rides <- no_outs_trips_12_months %>%
+  group_by(date, member_casual) %>%
+  summarise(number_of_rides = n())
+ggplot(no_outs_trips_12_months_number_of_rides, aes(x = date, y = number_of_rides, color = member_casual)) +
+  geom_line(size=0.6) +
+  theme_clean() +
+  labs(x="Date (Month and Year)", y="Number of Trips", title="Number of Trips by Start Date and User Type") +
+  scale_x_date(breaks = "1 month", date_labels = "%b %y") +
+  scale_y_continuous(breaks = seq(0,15000,by=1000))
+#===============
+# cumulative membership
+table(no_outs_trips_12_months$member_casual) 
+#===============
+# compare summary statistics
+summary(no_outs_trips_12_months)
+summary(member_no_outs_trips_12_months)
+summary(casual_no_outs_trips_12_months)
+#===============
+# explore spread and skewness of data
+skewness(no_outs_trips_12_months$start_lat) # -0.6773979
+skewness(no_outs_trips_12_months$start_lng) # -0.9758257
+skewness(no_outs_trips_12_months$end_lat) # -0.6579156
+skewness(no_outs_trips_12_months$end_lng) # -0.9699732
+skewness(no_outs_trips_12_months$month_number) # -0.2348046
+skewness(no_outs_trips_12_months$week_day_number) # -0.06877286
+skewness(no_outs_trips_12_months$hour) # -0.6173766
+skewness(trips_12_months$trip_length) # 188.884 # visualize skew
+ggplot(trips_12_months,aes(member_casual,trip_length, colour = member_casual)) +
+  geom_boxplot(show.legend = FALSE) +
+  ggthemes::theme_fivethirtyeight() +
+  theme(axis.title = element_text()) +
+  labs(title = "Box Plot of Trip Length", x = 'Outliers Included',
+       y = 'Trip Length (Seconds)') +
+  theme(axis.text.x  = element_text(size = 8)) +
+  scale_y_continuous(labels = comma) # see cleaning
+skewness(no_outs_trips_12_months$trip_length) #0.6903038 # visualize cleaning result
+ggplot(no_outs_trips_12_months,aes(member_casual,trip_length, colour = member_casual)) +
+  geom_boxplot(show.legend = FALSE) +
+  ggthemes::theme_fivethirtyeight() +
+  theme(axis.title = element_text()) +
+  labs(title = "Box Plot of Trip Length", x = 'Non-Outliers',
+       y = 'Trip Length (Seconds)') +
+  theme(axis.text.x  = element_text(size = 8)) +
+  scale_y_continuous(labels = comma)
+#==================================
+see Part 3
+
+

@@ -1,3 +1,24 @@
 #==================
+# Mode Bike Choice
+mfv(no_outs_trips_12_months$rideable_type) #classic bike
+mfv(member_no_outs_trips_12_months$rideable_type)
+mfv(casual_no_outs_trips_12_months$rideable_type) # Mode for all: classic_bike
+# Number of Rides by Bike Choice
+bike_choice <- no_outs_trips_12_months %>%
+  group_by(rideable_type, member_casual) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(bike_choice, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+bike_choice <- read_xlsx("C:/Users/breta/OneDrive/Desktop/bike_choice_v2.xlsx")
+ggplot(bike_choice, aes(x = rideable_type, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Bike Choice", y="Number of Trips", title="Number of Trips by Bike Type and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,1500000,by=100000))
+## Number of Rides by Bike Choice and Month, Day, Hour
+bike_choice_timing <- no_outs_trips_12_months %>%
+  group_by(member_casual, month, day_of_week, ride_hour_category, rideable_type) %>%
+  summarise(number_of_rides = n())
+write_xlsx(bike_choice_timing, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+bike_choice_timing_v3 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/Case 1 v2/bike_choice_timing_v3.xlsx")
 #==================
 see Part 5

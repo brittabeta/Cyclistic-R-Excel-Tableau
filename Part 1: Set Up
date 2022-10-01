@@ -65,6 +65,6 @@ str(X202107_divvy_tripdata_v3)
 str(X202106_divvy_tripdata_v3)
 #=============================
 # Merge month data frames into one 12 month data frame
-trips_12_months_1 <- bind_rows(X202205_divvy_tripdata_v3, X202204_divvy_tripdata_v3, X202203_divvy_tripdata_v3, X202202_divvy_tripdata_v3, X202201_divvy_tripdata_v3, X202112_divvy_tripdata_v3, X202111_divvy_tripdata_v3, X202110_divvy_tripdata_v3, X202109_divvy_tripdata_v3, X202108_divvy_tripdata_v3, X202107_divvy_tripdata_v3, X202106_divvy_tripdata_v3)
+trips_12_months <- bind_rows(X202205_divvy_tripdata_v3, X202204_divvy_tripdata_v3, X202203_divvy_tripdata_v3, X202202_divvy_tripdata_v3, X202201_divvy_tripdata_v3, X202112_divvy_tripdata_v3, X202111_divvy_tripdata_v3, X202110_divvy_tripdata_v3, X202109_divvy_tripdata_v3, X202108_divvy_tripdata_v3, X202107_divvy_tripdata_v3, X202106_divvy_tripdata_v3)
 #=====================
 # see Part 2...

@@ -1,0 +1,109 @@
+#==================
+# mode of location category: the area of all stations divided into 9 equal blocks
+mfv(no_outs_trips_12_months$location_category) #central
+mfv(member_no_outs_trips_12_months$location_category) #central sec
+mfv(casual_no_outs_trips_12_months$location_category) #central
+# mode of start latitude and longitude
+mfv(no_outs_trips_12_months$start_lat) #41.92
+mfv(member_no_outs_trips_12_months$start_lat) #41.92
+mfv(casual_no_outs_trips_12_months$start_lat) #41.92
+mfv(no_outs_trips_12_months$start_lng) #-87.65
+mfv(member_no_outs_trips_12_months$start_lng) #-87.65
+mfv(casual_no_outs_trips_12_months$start_lng) #-87.65
+# start latitude summary statistics
+startlat_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(start_lat), q1 = quantile(start_lat, 0.25),median = median(start_lat), mean = mean(start_lat), q3 = quantile(start_lat, 0.75), max = max(start_lat))
+write_xlsx(startlat_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+startlat_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/startlat_summary_v2.xlsx")
+# start longitude summary statistics
+startlng_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(start_lng), q1 = quantile(start_lng, 0.25),median = median(start_lng), mean = mean(start_lng), q3 = quantile(start_lng, 0.75), max = max(start_lng))
+write_xlsx(startlng_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+startlng_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/startlng_summary_v2.xlsx")
+# mode end latitude
+mfv(no_outs_trips_12_months$end_lat) #41.92
+mfv(member_no_outs_trips_12_months$end_lat) #41.92
+mfv(casual_no_outs_trips_12_months$end_lat) #41.92
+# end latitude summary statistics
+endlat_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(end_lat), q1 = quantile(end_lat, 0.25),median = median(end_lat), mean = mean(end_lat), q3 = quantile(end_lat, 0.75), max = max(end_lat))
+write_xlsx(endlat_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+endlat_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/endlat_summary_v2.xlsx")
+# mode end longitude
+mfv(no_outs_trips_12_months$end_lng) #-87.65
+mfv(member_no_outs_trips_12_months$end_lng) #-87.69
+mfv(casual_no_outs_trips_12_months$end_lng) #-87.65
+# end longitude summary statistics
+endlng_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(end_lng), q1 = quantile(end_lng, 0.25),median = median(end_lng), mean = mean(end_lng), q3 = quantile(end_lng, 0.75), max = max(end_lng))
+write_xlsx(endlng_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+endlng_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/endlng_summary_v2.xlsx")
+# number of trips within location category's mean start latitude and longitude
+location_category_mean_latlng <- no_outs_trips_12_months %>%
+  group_by(member_casual, location_category) %>%
+  summarise(number_of_rides = n(), mean_lat = mean(start_lat), mean_lng = mean(start_lng))
+write_xlsx(location_category_mean_latlng, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+location_category_mean_latlng_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/location_category_mean_latlng_v2.xlsx")
+# match latitude and longitude data to station name and id, was also done in spreadsheet using custom filter
+find_that_station_mode_start <- stations_692 %>%
+  filter((latitude >= 41.91 & latitude <= 41.93) & (longitude >= -87.66 & longitude <= -87.64)) %>%
+  group_by(station_name)
+write_xlsx(find_that_station_mode_start, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+find_that_station_mode_start_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/find_that_station_mode_start_v2.xlsx")
+find_that_station_end_member <- stations_692 %>%
+  filter((latitude >= 41.91 & latitude <= 41.93) & (longitude >= -87.7 & longitude <= -87.68)) %>%
+  group_by(station_name)
+write_xlsx(find_that_station_end_member, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+find_that_station_end_member_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/find_that_station_end_member_v2.xlsx")
+# subset of trips in the central location category
+central_no_outs_trips_12_months <- no_outs_trips_12_months %>%
+  filter(location_category == "central")
+central_trip_starts <- central_no_outs_trips_12_months %>%
+  group_by(member_casual, start_lat, start_lng) %>%
+  summarise(number_of_rides = n())
+write_xlsx(central_trip_starts, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+# upload central trips spreadsheet having removed rows with 1 trip
+central_trip_starts_clean_no1trip <- read_xlsx("C:/Users/breta/OneDrive/Desktop/central_trip_starts_clean_wo1trip.xlsx")
+# subsets of central trips with >1 trip divided by user type 
+member_central_trip_starts <- subset(central_no_outs_trips_12_months, member_casual == "member")
+casual_central_trip_starts <- subset(central_no_outs_trips_12_months, member_casual == "casual")
+# mode of start latitudes and longitudes
+mfv(member_central_trip_starts$start_lat)#41.92
+mfv(member_central_trip_starts$start_lng)#-87.63
+mfv(casual_central_trip_starts$start_lat)#41.92
+mfv(casual_central_trip_starts$start_lng)#-87.63
+ggplot(central_trip_starts_clean_no1trip, aes(x = start_lat, y = casual_more_rides, color = casual_more_rides)) +
+  geom_col() +
+  theme_clean() +
+  labs(x="Latitude of Trip Start", y="Difference in Trip Number (Casual - Member)", title="Difference in Trip Number by Start Latitude") +
+  scale_y_continuous(breaks = seq(-7500,5500,by=1000)) +
+  scale_x_continuous(breaks = seq(41.786833,41.922695,by=0.005)) +
+  theme(axis.text.x = element_text(angle = 90), axis.text=element_text(size=8))+
+  theme(legend.position = 'none')
+ggplot(central_trip_starts_clean_no1trip, aes(x = start_lng, y = casual_more_rides, color = casual_more_rides)) +
+  geom_col() +
+  theme_clean() +
+  labs(x="Longitude of Trip Start", y="Difference in Trip Number (Casual - Member)", title="Difference in Trip Number by Start Longitude") +
+  scale_y_continuous(breaks = seq(-7500,5500,by=1000)) +
+  scale_x_continuous(breaks = seq(-87.727907,-87.63,by=0.005)) +
+  theme(axis.text.x = element_text(angle = 90), axis.text=element_text(size=8))+
+  theme(legend.position = 'none')
+# upload number of trips at mean latitude and longitude within each location category with added column: difference in number of trips between casual riders and members
+location_category_mean_latlng_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/Case 1 v2/location_category_mean_latlng_v2.xlsx")
+ggplot(location_category_mean_latlng_v2, aes(x = location_category, y = casual_more_rides, color = location_category)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Station Region", y="Difference in Number of Trips (Casual - Member)", title="Difference in Number of Trips by Station Region and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,5000,by=1000))
+ggplot(location_category_mean_latlng_v2, aes(x = number_of_rides, y = location_category, label = casual_more_rides)) +
+  geom_line(aes(group = location_category), color = "gray50") +
+  geom_point(aes(color = member_casual), size = 2) + 
+  geom_text(aes(label = casual_more_rides), nudge_y = 0.2) +
+  theme_clean() +
+  labs(x="Number of Trips", y="Station Location Region", title="Number of Trips by Station Location Category and User Type", subtitle = "difference in trip number (casual trips - member trips)") +
+  scale_x_continuous(labels = scales::comma)
+#==================

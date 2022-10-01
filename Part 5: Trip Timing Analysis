@@ -1,0 +1,129 @@
+#======================
+# month of trip start summary statistics
+month_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(month_number), q1 = quantile(month_number, 0.25),median = median(month_number), mean = mean(month_number), q3 = quantile(month_number, 0.75), max = max(month_number))
+write_xlsx(month_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+month_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/month_summary_v2.xlsx")
+# mode month of trip start
+mfv(no_outs_trips_12_months$month) # July
+mfv(member_no_outs_trips_12_months$month) # August
+mfv(casual_no_outs_trips_12_months$month) # July
+# number of trips by month, day of week, ride hour category, hour
+month <- no_outs_trips_12_months %>%
+  group_by(member_casual, month) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(month, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+month <- read_xlsx("C:/Users/breta/OneDrive/Desktop/month.xlsx")
+ggplot(month, aes(x = month, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Month", y="Number of Trips", title="Number of Trips by Month and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,300000,by=50000))
+# day of week of trip start summary statistics
+dayofweek_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(week_day_number), q1 = quantile(week_day_number, 0.25),median = median(week_day_number), mean = mean(week_day_number), q3 = quantile(week_day_number, 0.75), max = max(week_day_number))
+write_xlsx(dayofweek_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+dayofweek_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/dayofweek_summary_v2.xlsx")
+# mode day of week
+mfv(no_outs_trips_12_months$week_day_number) # Sat
+mfv(member_no_outs_trips_12_months$week_day_number) # Tue
+mfv(casual_no_outs_trips_12_months$week_day_number) # Sat
+# number of trips by day of week
+dayofweek <- no_outs_trips_12_months %>%
+  group_by(member_casual, day_of_week) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(dayofweek, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+dayofweek <- read_xlsx("C:/Users/breta/OneDrive/Desktop/dayofweek_v2.xlsx")
+ggplot(dayofweek, aes(x = day_of_week, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Day", y="Number of Trips", title="Number of Trips by Day of Week and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,350000,by=50000))
+# hour of trip start summary statistics
+timeofday_summary <- no_outs_trips_12_months %>%                               
+  group_by(member_casual) %>% 
+  summarise(min = min(hour), q1 = quantile(hour, 0.25),median = median(hour), mean = mean(hour), q3 = quantile(hour, 0.75), max = max(hour))
+write_xlsx(timeofday_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+timeofday_summary_v2 <- read_xlsx("C:/Users/breta/OneDrive/Desktop/dayofweek_summary_v2.xlsx")
+# mode hour of trip start
+mfv(no_outs_trips_12_months$hour) # 17
+mfv(member_no_outs_trips_12_months$hour) # 17
+mfv(casual_no_outs_trips_12_months$hour) # 17
+# number of trips by ride hour category: subsets of trip start hours
+timeofday_ridehour <- no_outs_trips_12_months %>%
+  group_by(member_casual, ride_hour_category) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(timeofday_ridehour, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+timeofday_ridehour <- read_xlsx("C:/Users/breta/OneDrive/Desktop/timeofday_ridehour_v2.xlsx")
+# number of trips by ride hour category and trip start hour
+timeofday_hour <- no_outs_trips_12_months %>%
+  group_by(member_casual, ride_hour_category, hour) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(timeofday_hour, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+timeofday_hour <- read_xlsx("C:/Users/breta/OneDrive/Desktop/timeofday_hour_v2.xlsx")
+ggplot(timeofday_ridehour, aes(x = ride_hour_category, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Ride Hour Category", y="Number of Trips", title="Number of Trips by Ride Hour Category and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,900000,by=100000))
+ggplot(timeofday_hour, aes(x = hour, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  theme_clean() +
+  labs(x="Hour of Trip Start", y="Number of Trips", title="Number of Trips by Start Hour and User Type") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,250000,by=50000)) +
+  scale_x_continuous(breaks = seq(0,23,by=1))
+# number of trips by trip start: month, day of week, ride hour category, and hour of trip start
+month_day_time <- no_outs_trips_12_months %>%
+  group_by(member_casual, month, day_of_week, ride_hour_category, hour) %>%
+  dplyr::summarise(number_of_rides = n())
+write_xlsx(month_day_time, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+month_day_time <- read_xlsx("C:/Users/breta/OneDrive/Desktop/month_day_time_v2.xlsx")
+# subset of month_day_time with number of trips starting on Saturdays or Sundays in July
+month_day_time_julsatsun <- month_day_time %>%
+  filter((month == "Jul") & (day_of_week == "Saturday" | day_of_week == "Sunday"))
+# summary statistics of trips starting on a Saturday or Sunday in July
+julsatsun_tripnumber_by_hour_summary <- month_day_time_julsatsun %>%
+  group_by(member_casual) %>% 
+  summarise(min = min(number_of_rides), q1 = quantile(number_of_rides, 0.25),median = median(number_of_rides), mean = mean(number_of_rides), q3 = quantile(number_of_rides, 0.75), max = max(number_of_rides))
+write_xlsx(julsatsun_tripnumber_by_hour_summary, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+# compare 12 months of trip data against average hourly number of rides of July's Saturdays and Sundays
+month_day_time_12mo_vs_julsatsun <- month_day_time %>%
+  filter(number_of_rides >= 2196.896)
+write_xlsx(month_day_time_12mo_vs_julsatsun, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+ggplot(month_day_time_12mo_vs_julsatsun, aes(x = day_of_week, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  facet_grid(~month) +
+  theme_clean() +
+  labs(x="Month and Day", y="Number of Trips", title="Number of Trips by Month, Day, and User Type", subtitle = "Comparing 12 months of Trips with 2,196.896 or More Trips per Hour") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,7000,by=1000)) +
+  theme(axis.text.x = element_text(angle = 90), axis.text=element_text(size=7.8))
+# import spreadsheet with added column: difference between casual number of trips and member number of trips
+month_day_12mo_vs_julsatsun_difference <- read_xlsx("C:/Users/breta/OneDrive/Desktop/month_day_12mo_vs_julsatsun_difference.xlsx")
+month_day_12mo_vs_julsatsun_difference$month <- ordered(month_day_12mo_vs_julsatsun_difference$month, levels=c("May","Jun","Jul", "Aug", "Sep","Oct"))
+month_day_12mo_vs_julsatsun_difference_more_casual <- month_day_12mo_vs_julsatsun_difference %>%
+  filter(casual_more_rides > 0)
+ggplot(month_day_12mo_vs_julsatsun_difference_more_casual, aes(x = day_of_week, y = casual_more_rides, fill = casual_more_rides)) +
+  geom_col(position = "dodge") +
+  facet_grid(~month) +
+  theme_clean() +
+  labs(x="Month and Day", y="Number More Trips by Casual Riders", title="Comparable Hourly Trip Numbers by Month and Day", subtitle = "When casual riders took more trips AND took 2,196.896 or more trips per hour") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,20000,by=5000)) +
+  theme(axis.text.x = element_text(angle = 90), axis.text=element_text(size=7.8)) +
+  theme(legend.position="none")
+# subset of times with comparable average hourly trip numbers vs July's Saturdays and Sundays AND more trips made by casual riders vs members
+month_hour_12mo_vs_julsatsun_difference_more_casual <- month_hour_12mo_vs_julsatsun_difference %>%
+  filter(casual_more_rides > 0)
+month_hour_12mo_vs_julsatsun_difference_more_casual$month <- ordered(month_hour_12mo_vs_julsatsun_difference_more_casual$month, levels=c("May","Jun","Jul", "Aug", "Sep","Oct"))
+ggplot(month_hour_12mo_vs_julsatsun_difference_more_casual, aes(x = hour, y = casual_more_rides, fill = casual_more_rides)) +
+  geom_col(position = "dodge") +
+  facet_grid(~month) +
+  theme_clean() +
+  labs(x="Month and Hour", y="Number More Trips by Casual Riders", title= "Comparable Hourly Trip Numbers by Month and Hour", subtitle = "When casual riders took more trips AND took 2,196.896 or more trips per hour") +
+  scale_y_continuous(labels = scales::comma, breaks = seq(0,4000,by=500)) +
+  scale_x_continuous(breaks = seq(0,23,by=2)) +
+  theme(legend.position="none") +
+  theme(axis.text.x = element_text(angle = 90), axis.text=element_text(size=8))
+#======================
+# see Part 6

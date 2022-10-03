@@ -14,9 +14,9 @@ save(no_outs_trips_12_months, casual_no_outs_trips_12_months, member_no_outs_tri
 ## stations_692 = the service's 692 station names, station ids, latitude, and longitude
 ## .xlsx files = spreadsheet outputs during analysis, include manipulations used in analysis
 ## .jpeg files = visual outputs during analysis
-# 2) Scroll down to "Summary" and click arrow next to file icon
+# 2) Scroll down to "Data Explorer" 
 # 3) Select .RData (or other as desired)
-# 4) download the file: cyclistic_bike_share_data.RData 
+# 4) click download button to download the file: cyclistic_bike_share_data.RData 
 # 5) run the below code in your RStudio R Script file:
 load(file = "cyclistic_bike_share_data.RData")
 #============================================

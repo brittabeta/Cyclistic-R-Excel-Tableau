@@ -66,5 +66,11 @@ triplength_time_mini_short_medium <- no_outs_trips_12_months %>%
   group_by(member_casual, ride_hour_category) %>%
   summarise(number_of_rides = n(), mean_trip_length_minutes = mean(trip_length)/60)
 write_xlsx(triplength_time_mini_short_medium, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
+# subset of number of trips and trip length of trips taking >20 minutes grouped by ride hour category
+triplength_time_long_longest <- no_outs_trips_12_months %>%
+  filter(trip_length > 1200 & trip_length <= 1800) %>%
+  group_by(member_casual, ride_hour_category) %>%
+  summarise(number_of_rides = n(), mean_trip_length_minutes = mean(trip_length)/60)
+write_xlsx(triplength_time_long_longest, 'C:\\Users\\breta\\OneDrive\\Desktop.xlsx')
 #===================
 # see Part 7

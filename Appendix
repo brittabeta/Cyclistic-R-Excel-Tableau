@@ -1,0 +1,22 @@
+#=========================================
+# code used to save clean data for sharing
+save(no_outs_trips_12_months, casual_no_outs_trips_12_months, member_no_outs_trips_12_months, trips_12_months, file = "cyclistic_bike_share_data.RData") 
+
+# about the data
+## trips_12_months = initial data frame from binding of 12 spreadsheets
+## no_outs_trips_12_months = data frame trips_12_months without the plethora of trip_length outliers
+## casual_no_outs_trips_12_months = casual subset of no_outs_trips_12_months
+## member_no_outs_trips_12_months = member subset of no_outs_trips_12_months
+
+# access and load the above data
+# 1) go to https://www.kaggle.com/datasets/brittasmith/cyclistic-bikeshare-clean-data-rdata
+## also available for download at above url: 
+## stations_692 = the service's 692 station names, station ids, latitude, and longitude
+## .xlsx files = spreadsheet outputs during analysis, include manipulations used in analysis
+## .jpeg files = visual outputs during analysis
+# 2) Scroll down to "Summary" and click arrow next to file icon
+# 3) Select .RData (or other as desired)
+# 4) download the file: cyclistic_bike_share_data.RData 
+# 5) run the below code in your RStudio R Script file:
+load(file = "cyclistic_bike_share_data.RData")
+#============================================

@@ -9,6 +9,6 @@ Cleaning documentation and rationale
 # Resources and Appendix
 Directions to access raw and clean data, about the data brief overview 
 # Tools Used
-RStudio, Excel, Tableau
+RStudio, R code, R packages mainly Tidyverse, Excel, Tableau
 # In Association with
 Google Data Analytics Professional Certification

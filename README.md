@@ -3,7 +3,7 @@ Data analysis of twelve months of bikeshare trip data to inform change in market
 # PowerPoint Presentation
 Contents: scenario overview, sharing analysis of findings, recommendations based on trends identified
 # Parts 
-RStudio R code use
+RStudio R code used in stages of analysis
 # Changelog
 Cleaning documentation and rationale
 # Resources and Appendix
